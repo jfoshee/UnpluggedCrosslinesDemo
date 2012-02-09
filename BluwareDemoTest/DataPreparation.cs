@@ -41,10 +41,12 @@ namespace BluwareDemoTest
 
         private Bitmap GetBitmapForMiddle(ISegyFile segy, Func<ITrace, int> numberSelector)
         {
-            var imageWriter = new ImageWriter();
+            var imageWriter = new ImageWriter { SetNullValuesToTransparent = false };
             var numbers = segy.Traces.Select(numberSelector).Distinct();
-            int middleNumber = numbers.ElementAt(numbers.Count() / 2);
+            var index = numbers.Count() / 2;
+            int middleNumber = numbers.ElementAt(index);
             Console.WriteLine("line num: " + middleNumber);
+            Console.WriteLine("line index: " + index);
             var inlineTraces = segy.Traces.Where(t => numberSelector(t) == middleNumber).ToList();
             var bitmapPath = Path.GetTempFileName() + ".png";
             var bitmap = imageWriter.GetBitmap(inlineTraces);

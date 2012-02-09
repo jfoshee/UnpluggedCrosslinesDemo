@@ -10,20 +10,34 @@
 @Html.Partial("Unplugged/_SliceDisplay", Tuple.Create(6, 24, 1))
 *@
 
-<script language=javascript type="text/javascript">
+<script language="javascript" type="text/javascript">
+    var yScale = 0.1;
     var inline = Unplugged.Slice.loadScene(3, 24, 0);
-    inline.position.x = -1.5;
-    inline.position.z = 2.5;
+//    var xWidth = 2 + 60 / 64;
+//    var zWidth = 5 + 25 / 26;
+    var xOffset = 94 / 64;
+    var zOffset = 172 / 64;
+    inline.position.x = 0.5 - xOffset;
+    inline.position.z = -0.5 + zOffset;
+    inline.scale.y = yScale;
     inline.updateMatrix();
 
     var crossline = Unplugged.Slice.loadScene(6, 24, 1);
     crossline.rotation.y = -0.5 * 3.141592654;
+    crossline.scale.y = yScale;
     crossline.updateMatrix();
 
     var scene = Unplugged.createScene();
     scene.add(inline);
     scene.add(crossline);
     var display = Unplugged.createDisplay(scene);
+
+    display.camera.position.x = 1;
+    display.camera.position.y = 1;
+    display.camera.position.z = 4;
+    display.camera.up.y = -1;
+    display.camera.updateMatrix();
+
     display.renderLoop();
 </script>
 
