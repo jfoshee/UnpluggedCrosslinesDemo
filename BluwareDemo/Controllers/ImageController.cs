@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Unplugged.Volume;
 using Unplugged.Web.Controllers;
+using System;
 
 namespace BluwareDemo.Controllers
 {
@@ -9,9 +10,17 @@ namespace BluwareDemo.Controllers
     {
         public override FileResult Tile(int i, int j, int k)
         {
-            var pathProviders = GetPathProviders();
-            var path = pathProviders[k].GetTilePath(i, j);
-            return new FilePathResult(path, "image");
+            try
+            {
+                var pathProviders = GetPathProviders();
+                var path = pathProviders[k].GetTilePath(i, j);
+                return new FilePathResult(path, "image");
+            }
+            catch (Exception ex)
+            {
+                new LogEvent(ex).Raise();
+                return new FilePathResult("", "image");
+            }
         }
 
         private ITilePathProvider[] GetPathProviders()
