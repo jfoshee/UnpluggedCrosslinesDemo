@@ -2,4 +2,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Unplugged Development</h2>
+
+@Html.Partial("Unplugged/_IncludeScripts")
+@Html.Partial("Unplugged/_SliceDisplay", Tuple.Create(3, 24, 0))
+@Html.Partial("Unplugged/_SliceDisplay", Tuple.Create(6, 24, 1))
