@@ -15,6 +15,11 @@ namespace BluwareDemoTest
         public TestContext TestContext { get; set; }
 
         [TestMethod]
+        public void Canary()
+        {
+        }
+
+        [TestMethod, Ignore]
         public void PrepareImageData()
         {
             var reader = new SegyReader { InlineNumberLocation = 17, CrosslineNumberLocation = 13 };
