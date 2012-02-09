@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluwareDemo", "BluwareDemo\BluwareDemo.csproj", "{C0BBECAA-7E8F-4C41-B9E7-A7280CFAF4AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluwareDemoTest", "BluwareDemoTest\BluwareDemoTest.csproj", "{87D89432-99C0-410F-951B-DC2ECB183C2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19523F86-C832-4B0B-8657-CDCAC2A5B1A6}"
+	ProjectSection(SolutionItems) = preProject
+		BluwareDemo.vsmdi = BluwareDemo.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = BluwareDemo.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0BBECAA-7E8F-4C41-B9E7-A7280CFAF4AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BBECAA-7E8F-4C41-B9E7-A7280CFAF4AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BBECAA-7E8F-4C41-B9E7-A7280CFAF4AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BBECAA-7E8F-4C41-B9E7-A7280CFAF4AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87D89432-99C0-410F-951B-DC2ECB183C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D89432-99C0-410F-951B-DC2ECB183C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D89432-99C0-410F-951B-DC2ECB183C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D89432-99C0-410F-951B-DC2ECB183C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
