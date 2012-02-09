@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Unplugged.Segy;
+using Unplugged.Volume;
 
 namespace BluwareDemoTest
 {
@@ -20,10 +21,22 @@ namespace BluwareDemoTest
             var segyPath = @"C:\Users\jfoshee\Desktop\RMOTC Data\RMOTC Seismic data set\3D_Seismic\filt_mig.sgy";
             var segy = reader.Read(segyPath);
 
-            var inlineBitmap = GetBitmapForMiddle(segy, t => t.Header.InlineNumber);
-            inlineBitmap.Dispose();
-            var crosslineBitmap = GetBitmapForMiddle(segy, t => t.Header.CrosslineNumber);
-            crosslineBitmap.Dispose();
+            using (var inlineBitmap = GetBitmapForMiddle(segy, t => t.Header.InlineNumber))
+                MakeTiles("Inline", inlineBitmap);
+            using (var crosslineBitmap = GetBitmapForMiddle(segy, t => t.Header.CrosslineNumber))
+                MakeTiles("Crossline", crosslineBitmap);
+        }
+
+        private void MakeTiles(string name, Bitmap image)
+        {
+            var tilePathProvider = new DefaultTilePathProvider
+            {
+                ParentDirectory = @"C:\Users\jfoshee\Documents\visual studio 2010\Projects\BluwareDemo\BluwareDemo\ImageCache",
+                Name = name
+            };
+            var tileWriter = new TileWriter { TilePathProvider = tilePathProvider };
+            var tileCount = tileWriter.Write(image, 64, 64);
+            Console.WriteLine("Tile count: " + tileCount);
         }
 
         private Bitmap GetBitmapForMiddle(ISegyFile segy, Func<ITrace, int> numberSelector)
