@@ -6,6 +6,8 @@
 
 @Html.Partial("Unplugged/_IncludeScripts")
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" language="javascript" type="text/javascript"></script>
+
 <script language="javascript" type="text/javascript">
     var projector = new THREE.Projector();
     function onDocumentMouseDown(event) {
@@ -15,17 +17,37 @@
         var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
         var intersects = ray.intersectObjects(scene.objects);
         if (intersects.length > 0) {
-            //intersects[0].object.material.color.setHex(Math.random() * 0xffffff);
-            //var particle = new THREE.Particle(particleMaterial);
-            //particle.position = intersects[0].point;
-            //particle.scale.x = particle.scale.y = 8;
-            //scene.add(particle);
+            var p = intersects[0].point;
+            var s = p.x + ", " + p.y + ", " + p.z + "<br />";
+            //document.write();
+            $("#clicks").append(s);
         }
     }
-    document.addEventListener('mousedown', onDocumentMouseDown, false);
+
+    var hasEventListener = false;
+
+    function addHitTest() {
+        document.addEventListener('mousedown', onDocumentMouseDown, false);
+        hasEventListener = true;
+    }
+
+    function removeHitTest() {
+        document.removeEventListener('mousedown', onDocumentMouseDown, false);
+        hasEventListener = false;
+    }
+
+    function myToggle() {
+        display.toggleMode();
+        if (hasEventListener) {
+            removeHitTest();
+        } else {
+            addHitTest();
+        }
+    }
+
 </script>
 
-<a href="javascript:display.toggleMode()">Toggle Mode</a>
+<a href="javascript:myToggle()">Toggle Mode</a>
 
 <script language="javascript" type="text/javascript">
     var yScale = 0.1;
@@ -61,4 +83,4 @@
     display.renderLoop();
 </script>
 
-
+<div id="clicks"></div>
