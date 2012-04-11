@@ -17,6 +17,9 @@ Unplugged.createControls = function (camera) {
 Unplugged.createRenderer = function () {
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.top = 0;
+    renderer.domElement.style.zIndex = "-1"
     document.body.appendChild(renderer.domElement);
     return renderer;
 };

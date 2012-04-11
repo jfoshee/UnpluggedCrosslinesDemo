@@ -19,8 +19,7 @@
         if (intersects.length > 0) {
             var p = intersects[0].point;
             var s = p.x + ", " + p.y + ", " + p.z + "<br />";
-            //document.write();
-            $("#clicks").append(s);
+            $("#clicks").html(s);
         }
     }
 
@@ -48,6 +47,7 @@
 </script>
 
 <a href="javascript:myToggle()">Toggle Mode</a>
+<div id="clicks"></div>
 
 <script language="javascript" type="text/javascript">
     var yScale = 0.1;
@@ -82,5 +82,3 @@
 
     display.renderLoop();
 </script>
-
-<div id="clicks"></div>
