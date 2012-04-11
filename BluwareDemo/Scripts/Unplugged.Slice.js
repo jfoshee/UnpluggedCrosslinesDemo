@@ -15,12 +15,13 @@ Unplugged.Slice._getTileSize = function (tile) {
 
 Unplugged.Slice._setTileScale = function (tile, firstTile) {
     if (!tile.hasOwnProperty("scale")) return;
+    if (firstTile == null) return;
     var first = this._getTileSize(firstTile);
     var size = this._getTileSize(tile);
     tile.scale.x = size.w / first.w;
     tile.scale.y = -size.h / first.h;   // Flip vertically
-    tile.position.x -= (1 - tile.scale.x) / 2; 
-    tile.position.y -= (1 + tile.scale.y) / 2; 
+    tile.position.x -= (1 - tile.scale.x) / 2;
+    tile.position.y -= (1 + tile.scale.y) / 2;
 }
 
 Unplugged.Slice._isImageLoaded = function (tile) {

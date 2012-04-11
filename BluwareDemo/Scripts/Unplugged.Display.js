@@ -25,11 +25,25 @@ Unplugged.createRenderLoop = function (renderer, scene, controls) {
     var renderLoop = function () {
         controls.update();
         renderer.render(scene, controls.object);
-        window.setTimeout(renderLoop, 1000 / 60);
+        Unplugged._renderLoopTimeout = window.setTimeout(renderLoop, 1000 / 60);
         // TODO: Use RequestAnimationFrame
     };
     return renderLoop;
 };
+
+Unplugged.toggleModeFunction = function (renderer, scene, controls) {
+    return function () {
+        if (typeof Unplugged._renderLoopTimeout === "undefined") {
+            delete this.renderLoop;
+            this.renderLoop = Unplugged.createRenderLoop(renderer, scene, controls);
+            this.renderLoop();
+        }
+        else {
+            window.clearTimeout(Unplugged._renderLoopTimeout);
+            delete Unplugged._renderLoopTimeout;
+        }
+    }
+}
 
 Unplugged.createDisplay = function (scene) {
     var camera = this.createCamera();
@@ -40,6 +54,7 @@ Unplugged.createDisplay = function (scene) {
         camera: camera,
         controls: controls,
         renderer: renderer,
-        renderLoop: this.createRenderLoop(renderer, scene, controls)
+        renderLoop: this.createRenderLoop(renderer, scene, controls),
+        toggleMode: this.toggleModeFunction(renderer, scene, controls)
     };
 }

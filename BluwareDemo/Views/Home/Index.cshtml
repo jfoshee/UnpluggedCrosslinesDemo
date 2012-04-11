@@ -7,6 +7,27 @@
 @Html.Partial("Unplugged/_IncludeScripts")
 
 <script language="javascript" type="text/javascript">
+    var projector = new THREE.Projector();
+    function onDocumentMouseDown(event) {
+        event.preventDefault();
+        var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
+        projector.unprojectVector(vector, camera);
+        var ray = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize());
+        var intersects = ray.intersectObjects(scene.objects);
+        if (intersects.length > 0) {
+            //intersects[0].object.material.color.setHex(Math.random() * 0xffffff);
+            //var particle = new THREE.Particle(particleMaterial);
+            //particle.position = intersects[0].point;
+            //particle.scale.x = particle.scale.y = 8;
+            //scene.add(particle);
+        }
+    }
+    document.addEventListener('mousedown', onDocumentMouseDown, false);
+</script>
+
+<a href="javascript:display.toggleMode()">Toggle Mode</a>
+
+<script language="javascript" type="text/javascript">
     var yScale = 0.1;
     var inline = Unplugged.Slice.loadScene(3, 24, 0);
     var xIndex = 94;
@@ -32,11 +53,12 @@
     scene.updateMatrix();
     var display = Unplugged.createDisplay(scene);
 
-    var cam = display.camera;
-    cam.position.z = 3;
-    cam.up.y = -1;
-    cam.updateMatrix();
+    var camera = display.camera;
+    camera.position.z = 3;
+    camera.up.y = -1;
+    camera.updateMatrix();
 
     display.renderLoop();
-</script>
-
+</script>
+
+
